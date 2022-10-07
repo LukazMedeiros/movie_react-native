@@ -1,6 +1,7 @@
 import { Picker } from "@react-native-picker/picker";
 import { useEffect, useState } from "react";
 import { Button, Text, TextInput, View } from "react-native";
+import { getMoviesIDs } from "../../utils/getMovies.js";
 
 export function Index() {
   const [genres, setGenres] = useState(["selecione"]);
@@ -24,9 +25,11 @@ export function Index() {
         setGenres(response.results);
       })
       .catch((err) => console.error(err));
+
+    return () => {};
   }, []);
 
-  function handleSearch() {
+  async function handleSearch() {
     const actualYear = new Date().getFullYear();
 
     if (selectedGenre == "selecione") {
@@ -43,6 +46,8 @@ export function Index() {
 
     console.log(year, selectedGenre);
     console.log(typeof year, typeof selectedGenre);
+    const resposta = await getMoviesIDs(selectedGenre, year);
+    console.log(resposta);
   }
 
   const options = genres.map((item) => {
