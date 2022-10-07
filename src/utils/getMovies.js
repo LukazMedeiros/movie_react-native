@@ -16,6 +16,8 @@ export async function getMoviesIDs(genre, year) {
         titleType: "movie",
         genre: genre, //"Action",
         year: year.toString(), //"2020",
+        startYear: year.toString(),
+        endYear: year.toString(),
       },
       headers: {
         "X-RapidAPI-Key": process.env.API_KEY,

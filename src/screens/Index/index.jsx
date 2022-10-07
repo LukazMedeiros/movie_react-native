@@ -48,6 +48,7 @@ export function Index() {
     console.log(typeof year, typeof selectedGenre);
     const resposta = await getMoviesIDs(selectedGenre, year);
     console.log(resposta);
+    console.log(resposta.length);
   }
 
   const options = genres.map((item) => {
