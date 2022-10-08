@@ -1,9 +1,15 @@
 import { Picker } from "@react-native-picker/picker";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Text, TextInput, View } from "react-native";
+
+//context
+import { IdContext } from "../../context/idContext.jsx";
+import { getGenres } from "../../utils/getGenres.js";
 import { getMoviesIDs } from "../../utils/getMovies.js";
 
 export function Index() {
+  const { setMovieIDs } = useContext(IdContext);
+
   const [genres, setGenres] = useState(["selecione"]);
 
   const [selectedGenre, setSelectedGenre] = useState("selecione");
@@ -11,20 +17,9 @@ export function Index() {
   const [year, setYear] = useState(null);
 
   useEffect(() => {
-    const options = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": process.env.API_KEY,
-        "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com",
-      },
-    };
-
-    fetch("https://moviesdatabase.p.rapidapi.com/titles/utils/genres", options)
-      .then((response) => response.json())
-      .then((response) => {
-        setGenres(response.results);
-      })
-      .catch((err) => console.error(err));
+    getGenres()
+      .then((response) => setGenres(response))
+      .catch((error) => console.error);
 
     return () => {};
   }, []);
@@ -47,6 +42,7 @@ export function Index() {
     console.log(year, selectedGenre);
     console.log(typeof year, typeof selectedGenre);
     const resposta = await getMoviesIDs(selectedGenre, year);
+    setMovieIDs(resposta);
     console.log(resposta);
     console.log(resposta.length);
   }
