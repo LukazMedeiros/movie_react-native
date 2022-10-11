@@ -1,15 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { View, Text, Image, ScrollView } from "react-native";
+import { IdContext } from "../../context/idContext.jsx";
 import { getMovieInfo } from "../../utils/getMovieInfo.js";
 
 export function Movie() {
-  const movieIDs = [
-    "tt0849437",
-    "tt0926132",
-    "tt0983946",
-    "tt10011228",
-    "tt10022990",
-  ];
+  const { movieIDs } = useContext(IdContext);
 
   const [movieData, setMovieData] = useState({});
 

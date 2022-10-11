@@ -7,7 +7,7 @@ import { IdContext } from "../../context/idContext.jsx";
 import { getGenres } from "../../utils/getGenres.js";
 import { getMoviesIDs } from "../../utils/getMovies.js";
 
-export function Index() {
+export function Index({ navigation }) {
   const { setMovieIDs } = useContext(IdContext);
 
   const [genres, setGenres] = useState(["selecione"]);
@@ -45,6 +45,7 @@ export function Index() {
     setMovieIDs(resposta);
     console.log(resposta);
     console.log(resposta.length);
+    navigation.navigate("Result");
   }
 
   const options = genres.map((item) => {
